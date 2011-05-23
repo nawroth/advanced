@@ -19,8 +19,6 @@
  */
 package org.neo4j.management.impl;
 
-import java.lang.reflect.Field;
-import java.lang.reflect.Modifier;
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.HashMap;
@@ -43,8 +41,6 @@ import org.neo4j.jmx.ManagementInterface;
 import org.neo4j.jmx.impl.ManagementBeanProvider;
 import org.neo4j.jmx.impl.ManagementData;
 import org.neo4j.jmx.impl.Neo4jMBean;
-import org.neo4j.kernel.Config;
-import org.neo4j.kernel.impl.annotations.Documented;
 
 @Service.Implementation( ManagementBeanProvider.class )
 public final class ConfigurationBean extends ManagementBeanProvider
@@ -75,24 +71,6 @@ public final class ConfigurationBean extends ManagementBeanProvider
         static
         {
             final Map<String, String> descriptions = new HashMap<String, String>();
-            for ( final Field field : Config.class.getFields() )
-            {
-                if ( Modifier.isStatic( field.getModifiers() )
-                     && Modifier.isFinal( field.getModifiers() ) )
-                {
-                    final Documented documentation = field.getAnnotation( Documented.class );
-                    if ( documentation == null || field.getType() != String.class ) continue;
-                    try
-                    {
-                        if ( !field.isAccessible() ) field.setAccessible( true );
-                        descriptions.put( (String) field.get( null ), documentation.value() );
-                    }
-                    catch ( Exception e )
-                    {
-                        continue;
-                    }
-                }
-            }
             parameterDescriptions = Collections.unmodifiableMap( descriptions );
         }
         private final Map<Object, Object> config;
@@ -106,6 +84,10 @@ public final class ConfigurationBean extends ManagementBeanProvider
         private static String describeConfigParameter( String param )
         {
             String description = parameterDescriptions.get( param );
+            // FIXME: this is broken, there is valuable code removed here
+            // this was done in order for the support branch to work with
+            // the other support branches.
+            // If this makes it into trunk that would be bad!
             return description != null ? description : "Configuration attribute";
         }
 
