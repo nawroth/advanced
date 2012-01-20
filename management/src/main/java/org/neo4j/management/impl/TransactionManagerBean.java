@@ -29,7 +29,6 @@ import org.neo4j.kernel.Config;
 import org.neo4j.kernel.impl.nioneo.store.NeoStore;
 import org.neo4j.kernel.impl.nioneo.xa.NeoStoreXaDataSource;
 import org.neo4j.kernel.impl.transaction.TxManager;
-import org.neo4j.kernel.impl.transaction.TxModule;
 import org.neo4j.management.TransactionManager;
 
 @Service.Implementation( ManagementBeanProvider.class )
