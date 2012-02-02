@@ -20,7 +20,6 @@
 package org.neo4j.management.impl;
 
 import javax.management.NotCompliantMBeanException;
-
 import org.neo4j.helpers.Service;
 import org.neo4j.jmx.impl.ManagementBeanProvider;
 import org.neo4j.jmx.impl.ManagementData;
@@ -54,8 +53,7 @@ public final class TransactionManagerBean extends ManagementBeanProvider
         {
             super( management );
             this.txManager = (TxManager) management.getKernelData().graphDatabase().getTxManager();
-            this.neoStore = ( (NeoStoreXaDataSource) management.getKernelData().graphDatabase().getXaDataSourceManager().getXaDataSource(
-                    Config.DEFAULT_DATA_SOURCE_NAME ) ).getNeoStore();
+            this.neoStore = management.getKernelData().graphDatabase().getXaDataSourceManager().getNeoStoreDataSource().getNeoStore();
         }
 
         public int getNumberOfOpenTransactions()
