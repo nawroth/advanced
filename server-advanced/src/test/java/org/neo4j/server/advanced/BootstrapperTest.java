@@ -43,7 +43,6 @@ import static org.junit.Assert.assertNotNull;
 
 import java.io.File;
 
-
 import org.junit.Test;
 import org.neo4j.server.Bootstrapper;
 import org.neo4j.server.advanced.jmx.ServerManagement;
