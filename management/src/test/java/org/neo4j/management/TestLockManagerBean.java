@@ -43,10 +43,6 @@ import org.neo4j.kernel.info.LockingTransaction;
 import org.neo4j.kernel.info.ResourceType;
 import org.neo4j.kernel.info.WaitingThread;
 
-import static org.junit.Assert.assertEquals;
-import static org.junit.Assert.assertNotNull;
-import static org.junit.Assert.fail;
-
 public class TestLockManagerBean
 {
     private LockManager lockManager;
